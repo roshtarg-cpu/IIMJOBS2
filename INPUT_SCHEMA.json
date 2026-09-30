@@ -1,0 +1,26 @@
+{
+  "title": "IIMJobs Scraper Input",
+  "description": "Configure the IIMJobs scraper to extract job listings from any category or keyword page on iimjobs.com.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "startUrl": {
+      "title": "Start URL",
+      "type": "string",
+      "description": "The iimjobs.com listing page URL to scrape. Use any category page like https://www.iimjobs.com/k/finance-and-accounts-jobs or keyword page like https://www.iimjobs.com/k/data-science-jobs.",
+      "editor": "textfield",
+      "prefill": "https://www.iimjobs.com/k/finance-and-accounts-jobs",
+      "example": "https://www.iimjobs.com/k/finance-and-accounts-jobs"
+    },
+    "maxPages": {
+      "title": "Max Pages",
+      "type": "integer",
+      "description": "Maximum number of listing pages to scrape. Each page contains ~50 jobs. Set to 1 for a quick test or up to 100 for a full scrape.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 100,
+      "prefill": 5
+    }
+  },
+  "required": ["startUrl"]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "iimjobs-scraper",
+  "version": "1.0.0",
+  "description": "Apify actor to scrape job listings from iimjobs.com — extract title, company, salary, experience, location, skills, and more.",
+  "main": "src/main.js",
+  "type": "module",
+  "license": "ISC",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "keywords": [
+    "apify",
+    "actor",
+    "scraper",
+    "iimjobs",
+    "jobs",
+    "india",
+    "mba",
+    "finance",
+    "recruitment"
+  ],
+  "author": "roshtarg@gmail.com",
+  "dependencies": {
+    "apify": "^3.2.6",
+    "crawlee": "^3.12.2"
+  }
+}

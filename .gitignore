@@ -1,0 +1,7 @@
+node_modules/
+storage/
+apify_storage/
+.venv/
+__pycache__/
+.DS_Store
+*.log

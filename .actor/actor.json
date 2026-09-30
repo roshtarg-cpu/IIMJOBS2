@@ -1,0 +1,50 @@
+{
+  "actorSpecification": 1,
+  "name": "iimjobs-scraper",
+  "title": "IIMJobs Scraper",
+  "description": "Scrape job listings from iimjobs.com — India's top job board for MBA, CA, and premium professionals. Extract title, company, salary, experience, location, skills, and more.",
+  "version": "1.0.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "readme": "../README.md",
+  "dockerfile": "../Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Job Listings",
+      "description": "Structured job listing data scraped from iimjobs.com",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "title",
+              "company",
+              "experienceRange",
+              "salaryRange",
+              "location",
+              "postedDate",
+              "skills",
+              "jobUrl",
+              "jobId"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "title": { "label": "Job Title", "format": "text" },
+              "company": { "label": "Company", "format": "text" },
+              "experienceRange": { "label": "Experience", "format": "text" },
+              "salaryRange": { "label": "Salary", "format": "text" },
+              "location": { "label": "Location", "format": "text" },
+              "postedDate": { "label": "Posted", "format": "text" },
+              "skills": { "label": "Skills", "format": "array" },
+              "jobUrl": { "label": "Job URL", "format": "link" },
+              "jobId": { "label": "Job ID", "format": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
