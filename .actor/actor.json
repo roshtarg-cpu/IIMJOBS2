@@ -13,62 +13,6 @@
       "actorSpecification": 1,
       "title": "Job Listings",
       "description": "Structured job listing data scraped from iimjobs.com",
-      "fields": {
-        "title": {
-          "type": "string",
-          "title": "Job Title",
-          "description": "The title of the job posting",
-          "example": "Finance Director - BFSI - South Asia"
-        },
-        "company": {
-          "type": "string",
-          "title": "Company",
-          "description": "Company name, or 'Confidential' for anonymized postings",
-          "example": "Ecolab"
-        },
-        "experienceRange": {
-          "type": "string",
-          "title": "Experience Range",
-          "description": "Required experience range in years",
-          "example": "15 - 30 yrs"
-        },
-        "salaryRange": {
-          "type": "string",
-          "title": "Salary Range",
-          "description": "Salary range in LPA (Lakhs Per Annum), empty if not disclosed",
-          "example": "35-50 LPA"
-        },
-        "location": {
-          "type": "string",
-          "title": "Location",
-          "description": "Job location city or cities",
-          "example": "Mumbai"
-        },
-        "postedDate": {
-          "type": "string",
-          "title": "Posted Date",
-          "description": "Relative posting date",
-          "example": "Posted 2 days ago"
-        },
-        "skills": {
-          "type": "array",
-          "title": "Skills",
-          "description": "Required skills and tags listed on the job",
-          "example": ["CA", "Financial Planning", "Budgeting"]
-        },
-        "jobUrl": {
-          "type": "string",
-          "title": "Job URL",
-          "description": "Direct URL to the job posting on iimjobs.com",
-          "example": "https://www.iimjobs.com/j/finance-director-bfsi-1737225"
-        },
-        "jobId": {
-          "type": "integer",
-          "title": "Job ID",
-          "description": "Unique numeric job identifier",
-          "example": 1737225
-        }
-      },
       "views": {
         "overview": {
           "title": "Overview",
