@@ -180,18 +180,14 @@
         "Generative AI",
         "Data Science",
         "Consulting"
-      ],
-      "sectionCaption": "Pick a category or paste a custom URL below",
-      "groupCaption": "Job Category"
+      ]
     },
     "customUrl": {
       "title": "Custom URL (optional)",
       "type": "string",
       "description": "Paste any iimjobs.com listing URL here to override the category dropdown. Use this for niche keyword pages not listed above, e.g. https://www.iimjobs.com/k/financial-planning-jobs",
       "editor": "textfield",
-      "nullable": true,
-      "sectionCaption": "Override the category above with any iimjobs.com listing URL",
-      "groupCaption": "Job Category"
+      "nullable": true
     },
     "location": {
       "title": "Location",
@@ -218,8 +214,7 @@
         "Kolkata",
         "Chennai",
         "Pune"
-      ],
-      "groupCaption": "Filters"
+      ]
     },
     "minExperience": {
       "title": "Min Experience (years)",
@@ -227,8 +222,7 @@
       "description": "Minimum years of experience. Leave at 0 for no minimum.",
       "default": 0,
       "minimum": 0,
-      "maximum": 50,
-      "groupCaption": "Filters"
+      "maximum": 50
     },
     "maxExperience": {
       "title": "Max Experience (years)",
@@ -236,8 +230,7 @@
       "description": "Maximum years of experience. Leave at 0 for no maximum.",
       "default": 0,
       "minimum": 0,
-      "maximum": 50,
-      "groupCaption": "Filters"
+      "maximum": 50
     },
     "industry": {
       "title": "Industry",
@@ -280,8 +273,7 @@
         "Advertising / PR / MR / Events",
         "KPO / Research / Analytics",
         "Consumer Durables"
-      ],
-      "groupCaption": "Filters"
+      ]
     },
     "postedWithin": {
       "title": "Posted Within",
@@ -297,8 +289,7 @@
         "Last 7 days",
         "Last 14 days",
         "Last 30 days"
-      ],
-      "groupCaption": "Filters"
+      ]
     },
     "maxPages": {
       "title": "Max Pages",
@@ -307,8 +298,7 @@
       "default": 5,
       "minimum": 1,
       "maximum": 100,
-      "prefill": 5,
-      "groupCaption": "Settings"
+      "prefill": 5
     }
   },
   "required": []
