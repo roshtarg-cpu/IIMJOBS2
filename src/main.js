@@ -4,14 +4,22 @@ import { CheerioCrawler } from 'crawlee';
 await Actor.init();
 
 const input = await Actor.getInput() ?? {};
-const startUrl = input.startUrl || 'https://www.iimjobs.com/k/finance-and-accounts-jobs';
+
+const category = input.category || 'finance-and-accounts-jobs';
+const customUrl = input.customUrl || '';
+const location = input.location || '';
+const minExperience = input.minExperience || 0;
+const maxExperience = input.maxExperience || 0;
+const industry = input.industry || '';
+const postedWithin = input.postedWithin || 0;
 const maxPages = input.maxPages || 5;
 
-log.info(`Starting scrape of ${startUrl}, maxPages=${maxPages}`);
+const startUrl = customUrl || `https://www.iimjobs.com/k/${category}`;
 
-// Step 1: Fetch the listing page to extract tagId/keywordId from __NEXT_DATA__
+log.info('Starting IIMJobs scraper', { startUrl, maxPages, location, minExperience, maxExperience, industry, postedWithin });
+
+// Step 1: Fetch the listing page to extract tagId from __NEXT_DATA__
 let tagId;
-let keywordId;
 
 const initCrawler = new CheerioCrawler({
     maxConcurrency: 1,
@@ -26,16 +34,14 @@ const initCrawler = new CheerioCrawler({
             };
         },
     ],
-    async requestHandler({ $, log: reqLog }) {
+    async requestHandler({ $ }) {
         const nextDataScript = $('#__NEXT_DATA__').html();
         if (!nextDataScript) {
             throw new Error('Could not find __NEXT_DATA__ on the page');
         }
         const nextData = JSON.parse(nextDataScript);
-        const pageProps = nextData.props?.pageProps;
-        tagId = pageProps?.tagId;
-        keywordId = tagId;
-        reqLog.info(`Extracted tagId=${tagId} from __NEXT_DATA__`);
+        tagId = nextData.props?.pageProps?.tagId;
+        log.info(`Extracted tagId=${tagId} from listing page`);
     },
 });
 
@@ -47,13 +53,25 @@ if (!tagId) {
     process.exit(1);
 }
 
-// Step 2: Fetch job data from the API for each page
+// Step 2: Build API URL with filters and fetch job data
 const API_BASE = 'https://gladiator.iimjobs.com/job/keyword/';
 let totalJobs = 0;
 
 for (let page = 0; page < maxPages; page++) {
-    const apiUrl = `${API_BASE}?query=${tagId}&page=${page}&industry=&keywordId=${keywordId}`;
-    log.info(`Fetching API page ${page + 1}/${maxPages}: ${apiUrl}`);
+    const params = new URLSearchParams({
+        query: tagId,
+        page: String(page),
+        keywordId: tagId,
+    });
+
+    if (location) params.set('loc', location);
+    if (minExperience > 0) params.set('minexp', String(minExperience));
+    if (maxExperience > 0) params.set('maxexp', String(maxExperience));
+    if (industry) params.set('industry', industry);
+    if (postedWithin > 0) params.set('posting', String(postedWithin));
+
+    const apiUrl = `${API_BASE}?${params.toString()}`;
+    log.info(`Fetching page ${page + 1}/${maxPages}`);
 
     try {
         const response = await fetch(apiUrl, {
@@ -95,7 +113,7 @@ for (let page = 0; page < maxPages; page++) {
                 salaryRange = `${job.minSal}-${job.maxSal} LPA`;
             }
 
-            const location = (job.locations || job.location || [])
+            const jobLocation = (job.locations || job.location || [])
                 .map((l) => l.name)
                 .join(', ');
 
@@ -127,7 +145,7 @@ for (let page = 0; page < maxPages; page++) {
                 company,
                 experienceRange,
                 salaryRange,
-                location,
+                location: jobLocation,
                 postedDate,
                 skills,
                 jobUrl,
@@ -136,14 +154,13 @@ for (let page = 0; page < maxPages; page++) {
             totalJobs++;
         }
 
-        log.info(`Page ${page + 1}: scraped ${jobs.length} jobs`);
+        log.info(`Page ${page + 1}: scraped ${jobs.length} jobs (${totalJobs} total)`);
 
         if (!json.hasMore) {
             log.info('No more pages available.');
             break;
         }
 
-        // Respect crawl-delay
         if (page < maxPages - 1) {
             await new Promise((resolve) => setTimeout(resolve, 10000));
         }
