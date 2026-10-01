@@ -11,7 +11,7 @@ const location = input.location || '';
 const minExperience = input.minExperience || 0;
 const maxExperience = input.maxExperience || 0;
 const industry = input.industry || '';
-const postedWithin = input.postedWithin || 0;
+const postedWithin = input.postedWithin || '';
 const maxPages = input.maxPages || 5;
 
 const startUrl = customUrl || `https://www.iimjobs.com/k/${category}`;
@@ -68,7 +68,7 @@ for (let page = 0; page < maxPages; page++) {
     if (minExperience > 0) params.set('minexp', String(minExperience));
     if (maxExperience > 0) params.set('maxexp', String(maxExperience));
     if (industry) params.set('industry', industry);
-    if (postedWithin > 0) params.set('posting', String(postedWithin));
+    if (postedWithin) params.set('posting', postedWithin);
 
     const apiUrl = `${API_BASE}?${params.toString()}`;
     log.info(`Fetching page ${page + 1}/${maxPages}`);
